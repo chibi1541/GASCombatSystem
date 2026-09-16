@@ -1,0 +1,136 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+
+#include "CSPlayerCharacter.h"
+#include "AbilitySystemComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "GameFramework/SpringArmComponent.h"
+#include "Camera/CameraComponent.h"
+#include "EnhancedInputSubsystems.h"
+#include "EnhancedInputComponent.h"
+#include "InputActionValue.h"
+
+// 이거 안 넣으면 .gen.cpp 포함이 안되서 리플렉션 기능이 찐빠난다고 하는데 안넣어서 문제가 생기는 경우를 아직 못봄...
+#include UE_INLINE_GENERATED_CPP_BY_NAME(CSPlayerCharacter)
+
+// Sets default values
+ACSPlayerCharacter::ACSPlayerCharacter()
+{
+	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = true;
+
+	// 컨트롤러에 맞춰서 액터가 회전하지 않도록 설정
+	bUseControllerRotationPitch = false;
+	bUseControllerRotationYaw = false;
+	bUseControllerRotationRoll = false;
+
+	// 현재 회전 방향으로 MovementComponent를 회전
+	GetCharacterMovement()->bOrientRotationToMovement = true;
+	GetCharacterMovement()->RotationRate = FRotator(0.f, 500.f, 0.f);
+
+	// Note: For faster iteration times these variables, and many more, can be tweaked in the Character Blueprint
+	// instead of recompiling to adjust them
+	GetCharacterMovement()->JumpZVelocity = 500.f;
+	GetCharacterMovement()->AirControl = 0.35f;
+	GetCharacterMovement()->MaxWalkSpeed = 600.f;
+	GetCharacterMovement()->MinAnalogWalkSpeed = 20.f;
+	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
+
+	// 셀카봉 생성 및 설정
+	// 컴포넌트를 생성하는 API 
+	// UObject를 생성하는 키워드가 CreateDefaultSubobject와 NewObject 2가지 방법이있음
+	// CreateDefaultSubobject-> 해당 UOjbect를 클래스(이 경우 CSCharacter를 의미)의 CDO에 포함하고 싶은 경우 사용
+	// NewObject -> 런타임 중에 UObject의 인스턴스를 만들 때 일반적으로 사용
+	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
+	CameraBoom->SetupAttachment(RootComponent);		// 액터의 루트 컴포넌트 하위에 셀카봉 컴포넌트를 등록
+	CameraBoom->TargetArmLength = 500.f;			// 셀카봉 길이
+	CameraBoom->bUsePawnControlRotation = true;		// 셀카봉이 Pawn의 회전에 맞춰서 같이 회전 할지
+
+	// 카메라 생성
+	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
+	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);		// 카메라를 셀카봉 아래에 등록(카메라는 셀카봉이랑 한몸이기 때문)
+	FollowCamera->bUsePawnControlRotation = false;	// 카메라는 회전할 필요 없음. 회전은 셀카봉만
+
+}
+
+// Called when the game starts or when spawned
+void ACSPlayerCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+	
+}
+
+// Called every frame
+void ACSPlayerCharacter::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+}
+
+// Called to bind functionality to input
+void ACSPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+	ensure(InputMappingContext);
+
+	// AI가 아니라면
+	if (APlayerController* PlayerController = Cast<APlayerController>(GetController()))
+	{
+		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
+		{
+			Subsystem->AddMappingContext(InputMappingContext, 0);
+		}
+	}
+
+	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
+	{
+		// IA과 실행 동작을 맵핑
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ACSPlayerCharacter::Move);
+		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ACSPlayerCharacter::Look);
+		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ThisClass::Jump);
+		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ThisClass::StopJumping);
+	}
+
+}
+
+void ACSPlayerCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+}
+
+void ACSPlayerCharacter::Move(const FInputActionValue& InValue)
+{
+	if (Controller == nullptr)
+	{
+		return;
+	}
+
+	const FVector2D MovementVector = InValue.Get<FVector2D>();
+
+	const FRotator Rotation = Controller->GetControlRotation();
+	const FRotator YawRotation(0, Rotation.Yaw, 0);
+
+	// get forward vector
+	const FVector ForwardDir = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+
+	// get right vector
+	const FVector RightDir = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+
+	// add input
+	AddMovementInput(ForwardDir, MovementVector.Y);		// Y축 입력(W,S)을 정면으로
+	AddMovementInput(RightDir, MovementVector.X);		// X축 입력(A,D)을 좌우로
+
+}
+
+void ACSPlayerCharacter::Look(const FInputActionValue& InValue)
+{
+	if (Controller == nullptr)
+	{
+		return;
+	}
+
+	const FVector2D LookAxisVector = InValue.Get<FVector2D>();
+	AddControllerYawInput(LookAxisVector.X);		// 좌,우 방향에 대한 입력은 Yaw(Z축)으로 회전
+	AddControllerPitchInput(LookAxisVector.Y);		// 위, 아래에 대한 입력은 Pitch(Y축)으로 회전
+}
