@@ -4,6 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "AbilitySystemInterface.h"
+
+// Include 하는 헤더들은 반드시 .generated.h보다 위에 정의해야 함
 #include "CSPlayerCharacter.generated.h"
 
 class UCameraComponent;
@@ -13,7 +16,7 @@ class UInputAction;
 struct FInputActionValue;
 
 UCLASS()
-class GASCOMBATSYSTEM_API ACSPlayerCharacter : public ACharacter
+class GASCOMBATSYSTEM_API ACSPlayerCharacter : public ACharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
@@ -34,6 +37,9 @@ public:
 
 	// 컨트롤러가 빙의 되었을 때 호출되는 콜백
 	virtual void PossessedBy(AController* NewController) override;
+
+	// Inherited via IAbilitySystemInterface
+	UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
 protected:
 	// Input 시에 처리되는 이벤트
@@ -61,4 +67,8 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Input)
 	TObjectPtr<UInputAction> JumpAction;
+
+	// GAS를 사용하기 위한 AbilitySystemComponent
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<UAbilitySystemComponent> ASC;
 };

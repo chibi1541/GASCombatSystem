@@ -51,6 +51,8 @@ ACSPlayerCharacter::ACSPlayerCharacter()
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);		// 카메라를 셀카봉 아래에 등록(카메라는 셀카봉이랑 한몸이기 때문)
 	FollowCamera->bUsePawnControlRotation = false;	// 카메라는 회전할 필요 없음. 회전은 셀카봉만
 
+	// ASC 생성
+	ASC = CreateDefaultSubobject<UAbilitySystemComponent>(TEXT("ASC"));
 }
 
 // Called when the game starts or when spawned
@@ -97,6 +99,10 @@ void ACSPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 void ACSPlayerCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
+
+	// AbilitySystemComponent의 OwnerAcotr 설정
+	// GAS의 기준이 플레이어 컨트롤러인 경우는 첫번째 인자에 컨트롤러를 추가
+	ASC->InitAbilityActorInfo(this, this);
 }
 
 void ACSPlayerCharacter::Move(const FInputActionValue& InValue)
@@ -133,4 +139,9 @@ void ACSPlayerCharacter::Look(const FInputActionValue& InValue)
 	const FVector2D LookAxisVector = InValue.Get<FVector2D>();
 	AddControllerYawInput(LookAxisVector.X);		// 좌,우 방향에 대한 입력은 Yaw(Z축)으로 회전
 	AddControllerPitchInput(LookAxisVector.Y);		// 위, 아래에 대한 입력은 Pitch(Y축)으로 회전
+}
+
+UAbilitySystemComponent* ACSPlayerCharacter::GetAbilitySystemComponent() const
+{
+	return ASC;
 }
