@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
 #include "GameplayAbilitySpec.h"
+#include "NativeGameplayTags.h"
 
 // Include 하는 헤더들은 반드시 .generated.h보다 위에 정의해야 함
 #include "CSPlayerCharacter.generated.h"
@@ -15,6 +16,9 @@ class USpringArmComponent;
 class UInputMappingContext;
 class UInputAction;
 struct FInputActionValue;
+
+// 이동 제한을 위한 GamplayTag 변수를 선언
+GASCOMBATSYSTEM_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(MovingBlockTag);
 
 UCLASS()
 class GASCOMBATSYSTEM_API ACSPlayerCharacter : public ACharacter, public IAbilitySystemInterface
@@ -49,6 +53,10 @@ protected:
 	virtual void Look(const FInputActionValue& InValue);
 
 	virtual void Attack();
+
+	// 추후에 점프 금지 조건을 넣기 위해 미리 오버라이드
+	virtual void Jump() override;
+
 
 protected:
 

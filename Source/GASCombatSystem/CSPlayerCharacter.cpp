@@ -13,6 +13,9 @@
 // 이거 안 넣으면 .gen.cpp 포함이 안되서 리플렉션 기능이 찐빠난다고 하는데 안넣어서 문제가 생기는 경우를 아직 못봄...
 #include UE_INLINE_GENERATED_CPP_BY_NAME(CSPlayerCharacter)
 
+// 이동 제한 GamplayTag 초기화
+UE_DEFINE_GAMEPLAY_TAG(MovingBlockTag, "Gameplay.State.MovingBlocked");
+
 // Sets default values
 ACSPlayerCharacter::ACSPlayerCharacter()
 {
@@ -118,6 +121,12 @@ void ACSPlayerCharacter::PossessedBy(AController* NewController)
 
 void ACSPlayerCharacter::Move(const FInputActionValue& InValue)
 {
+	// Gameplay.State.MovingBlocked가 설정된 경우 이동 처리를 막음
+	if (ASC->HasMatchingGameplayTag(MovingBlockTag))
+	{
+		return;
+	}
+
 	if (Controller == nullptr)
 	{
 		return;
@@ -159,7 +168,11 @@ void ACSPlayerCharacter::Attack()
 		// 이걸로 호출하면 내부에서 이것저것 체크한 후에 Ability를 실행시킴
 		ASC->TryActivateAbility(AttackAbilityHandle);
 	}
+}
 
+void ACSPlayerCharacter::Jump()
+{
+	Super::Jump();
 }
 
 UAbilitySystemComponent* ACSPlayerCharacter::GetAbilitySystemComponent() const
