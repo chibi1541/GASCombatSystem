@@ -9,6 +9,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
 #include "InputActionValue.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 // 이거 안 넣으면 .gen.cpp 포함이 안되서 리플렉션 기능이 찐빠난다고 하는데 안넣어서 문제가 생기는 경우를 아직 못봄...
 #include UE_INLINE_GENERATED_CPP_BY_NAME(CSPlayerCharacter)
@@ -17,6 +18,7 @@
 UE_DEFINE_GAMEPLAY_TAG(MovingBlockTag, "Gameplay.State.MovingBlocked");
 UE_DEFINE_GAMEPLAY_TAG(NowAttackingTag, "Gameplay.State.Attacking");
 UE_DEFINE_GAMEPLAY_TAG(NextAttackTag, "Gameplay.State.NextAttack");
+UE_DEFINE_GAMEPLAY_TAG(HitTraceTag, "Gameplay.Event.HitTrace");
 
 // Sets default values
 ACSPlayerCharacter::ACSPlayerCharacter()
@@ -82,6 +84,8 @@ void ACSPlayerCharacter::BeginPlay()
 				AttackAbilityHandles.Emplace(Handle);
 			}
 		}
+
+		HitTraceDelegateHandle = ASC->GenericGameplayEventCallbacks.FindOrAdd(HitTraceTag).AddUObject(this, &ThisClass::HitTrace);
 	}
 }
 
@@ -226,6 +230,49 @@ void ACSPlayerCharacter::RemoveAttackDelegate()
 	if (ComboDelegateHandle.IsValid())
 	{
 		ASC->GenericGameplayEventCallbacks.FindOrAdd(NextAttackTag).Remove(ComboDelegateHandle);
+	}
+}
+
+void ACSPlayerCharacter::HitTrace(const FGameplayEventData* InPlayload)
+{
+	const FVector Start = GetActorLocation();
+
+	FVector ForwardVector = GetActorForwardVector();
+	ForwardVector.Z = 0.f;
+	ForwardVector.Normalize();
+	const FVector End = Start + (ForwardVector * CheckDistance);
+
+	TArray<TEnumAsByte<EObjectTypeQuery>> ObjectTypes;
+	ObjectTypes.Add(UEngineTypes::ConvertToObjectType(ECC_Pawn));
+
+	// SphereTraceMultiForObjects 마지막 인자 true면 이거 딱히 필요 없음
+	TArray<AActor*> ActorsToIgnore;
+	ActorsToIgnore.Add(this);
+
+	// 오브젝트 타입을 기준으로 콜리전 체크하는 함수
+	TArray<FHitResult> HitResults;
+	UKismetSystemLibrary::SphereTraceMultiForObjects(
+		this,
+		Start,
+		End,
+		SphereRadius,
+		ObjectTypes,
+		false,
+		ActorsToIgnore,
+		EDrawDebugTrace::ForDuration,
+		HitResults,
+		true
+	);
+
+	for (const FHitResult& Result : HitResults)
+	{
+		if (AActor* HtiActor = Result.GetActor())
+		{
+			if (HtiActor->ActorHasTag(TEXT("Enemy")))
+			{
+				// 데미지 처리
+			}
+		}
 	}
 }
 

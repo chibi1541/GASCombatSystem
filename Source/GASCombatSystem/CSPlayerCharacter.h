@@ -23,6 +23,7 @@ struct FInputActionValue;
 GASCOMBATSYSTEM_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(MovingBlockTag);				// 이동 제한 Tag
 GASCOMBATSYSTEM_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(NowAttackingTag);			// 공격 중 Tag
 GASCOMBATSYSTEM_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(NextAttackTag);				// 다음 공격 호출 Tag
+GASCOMBATSYSTEM_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(HitTraceTag);				// 공격 판정 호출 Tag
 
 
 UCLASS()
@@ -70,6 +71,9 @@ protected:
 
 	void RemoveAttackDelegate();
 
+	// 타격 판정을 위한 함수
+	virtual void HitTrace(const FGameplayEventData* InPlayload);
+
 protected:
 
 	// 언리얼 GC의 대상이므로 UPROPERTY를 반드시 붙혀야 함. 그렇지 않으면 사용 중에도 GC 대상이 되어서 삭제 됨 
@@ -104,7 +108,15 @@ protected:
 
 	TArray<FGameplayAbilitySpecHandle> AttackAbilityHandles = {};
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = HitTrace)
+	float CheckDistance = 150.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = HitTrace)
+	float SphereRadius = 60.f;
+
 	int32 ComboIndex = 0;
 	bool bCallNextAttack = false;
 	FDelegateHandle ComboDelegateHandle = {};
+
+	FDelegateHandle HitTraceDelegateHandle = {};
 };
