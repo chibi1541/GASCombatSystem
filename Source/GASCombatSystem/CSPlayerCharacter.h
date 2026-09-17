@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
+#include "GameplayAbilitySpec.h"
 
 // Include 하는 헤더들은 반드시 .generated.h보다 위에 정의해야 함
 #include "CSPlayerCharacter.generated.h"
@@ -47,6 +48,8 @@ protected:
 
 	virtual void Look(const FInputActionValue& InValue);
 
+	virtual void Attack();
+
 protected:
 
 	// 언리얼 GC의 대상이므로 UPROPERTY를 반드시 붙혀야 함. 그렇지 않으면 사용 중에도 GC 대상이 되어서 삭제 됨 
@@ -68,7 +71,16 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Input)
 	TObjectPtr<UInputAction> JumpAction;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Input)
+	TObjectPtr<UInputAction> AttackAction;
+
 	// GAS를 사용하기 위한 AbilitySystemComponent
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UAbilitySystemComponent> ASC;
+
+	// 공격 GameplayAbility
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = GameplayAbilities)
+	TSubclassOf<UGameplayAbility> AttackAbility;
+
+	FGameplayAbilitySpecHandle AttackAbilityHandle;
 };

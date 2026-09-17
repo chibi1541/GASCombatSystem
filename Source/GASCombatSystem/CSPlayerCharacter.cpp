@@ -60,6 +60,16 @@ void ACSPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	// GameplayAbility 등록
+	if (ASC)
+	{
+		// 공격 Ability 등록. 현재 Ability는 SubclassOf 형태이므로 인스턴스가 아닌 Class 타입
+		// 그렇기 때문에 실제 ClassObject를 가져와서 ASC에 할당해야함. 이 경우 CDO(Class Default Object)를 가져오면 됨
+		UGameplayAbility* AbilityCDO = AttackAbility->GetDefaultObject<UGameplayAbility>();
+		// 두 번째 인자는 Ability내부의 GameplayEffect의 레벨 값
+		FGameplayAbilitySpec AttackAbilitySpec(AbilityCDO, 1);
+		AttackAbilityHandle = ASC->GiveAbility(AttackAbilitySpec);
+	}
 }
 
 // Called every frame
@@ -88,10 +98,11 @@ void ACSPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
 	{
 		// IA과 실행 동작을 맵핑
-		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ACSPlayerCharacter::Move);
-		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ACSPlayerCharacter::Look);
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ThisClass::Move);
+		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ThisClass::Look);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ThisClass::Jump);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ThisClass::StopJumping);
+		EnhancedInputComponent->BindAction(AttackAction, ETriggerEvent::Triggered, this, &ThisClass::Attack);
 	}
 
 }
@@ -139,6 +150,16 @@ void ACSPlayerCharacter::Look(const FInputActionValue& InValue)
 	const FVector2D LookAxisVector = InValue.Get<FVector2D>();
 	AddControllerYawInput(LookAxisVector.X);		// 좌,우 방향에 대한 입력은 Yaw(Z축)으로 회전
 	AddControllerPitchInput(LookAxisVector.Y);		// 위, 아래에 대한 입력은 Pitch(Y축)으로 회전
+}
+
+void ACSPlayerCharacter::Attack()
+{
+	if (AttackAbilityHandle.IsValid())
+	{
+		// 이걸로 호출하면 내부에서 이것저것 체크한 후에 Ability를 실행시킴
+		ASC->TryActivateAbility(AttackAbilityHandle);
+	}
+
 }
 
 UAbilitySystemComponent* ACSPlayerCharacter::GetAbilitySystemComponent() const
