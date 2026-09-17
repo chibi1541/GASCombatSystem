@@ -3,6 +3,7 @@
 
 #include "CSEnemyCharacter.h"
 #include "AbilitySystemComponent.h"
+#include "CSBaseAttributeSet.h"
 
 
 // Sets default values
@@ -12,6 +13,8 @@ ACSEnemyCharacter::ACSEnemyCharacter()
 	PrimaryActorTick.bCanEverTick = true;
 
 	ASC = CreateDefaultSubobject<UAbilitySystemComponent>(TEXT("ASC"));
+	// AttributeSet 컴포넌트 처럼 등록하기만 하면 됨. 다른 처리는 필요 없음
+	BaseAttributeSet = CreateDefaultSubobject<UCSBaseAttributeSet>(TEXT("BaseAttributeSet"));
 }
 
 // Called when the game starts or when spawned
@@ -19,6 +22,17 @@ void ACSEnemyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	if (BaseAttribInitEffect)
+	{
+		FGameplayEffectContextHandle EffectContext = ASC->MakeEffectContext();
+		EffectContext.AddSourceObject(this);
+
+		FGameplayEffectSpecHandle BaseEffectSpedHandle = ASC->MakeOutgoingSpec(BaseAttribInitEffect, 1, EffectContext);
+		if (BaseEffectSpedHandle.IsValid())
+		{
+			ASC->ApplyGameplayEffectSpecToTarget(*BaseEffectSpedHandle.Data.Get(), ASC);
+		}
+	}
 }
 
 // Called every frame

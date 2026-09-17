@@ -10,6 +10,8 @@
 #include "CSEnemyCharacter.generated.h"
 
 class UAnimMontage;
+class UCSBaseAttributeSet;
+class UGameplayEffect;
 
 UCLASS()
 class GASCOMBATSYSTEM_API ACSEnemyCharacter : public ACharacter, public IAbilitySystemInterface, public ICombatActorInterface
@@ -50,7 +52,14 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UAbilitySystemComponent> ASC;
 
+	UPROPERTY()
+	TObjectPtr<UCSBaseAttributeSet> BaseAttributeSet;
+	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "TEMP")
 	TObjectPtr<UAnimMontage> OnHitMontage;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "GameplayEffect")
+	TSubclassOf<UGameplayEffect> BaseAttribInitEffect;
+
 
 };
