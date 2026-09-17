@@ -6,6 +6,8 @@
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
 #include "GameplayAbilitySpec.h"
+#include "ComboAttackInterface.h"
+
 #include "NativeGameplayTags.h"
 
 // Include 하는 헤더들은 반드시 .generated.h보다 위에 정의해야 함
@@ -17,11 +19,14 @@ class UInputMappingContext;
 class UInputAction;
 struct FInputActionValue;
 
-// 이동 제한을 위한 GamplayTag 변수를 선언
-GASCOMBATSYSTEM_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(MovingBlockTag);
+// GameplayTag 선언
+GASCOMBATSYSTEM_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(MovingBlockTag);				// 이동 제한 Tag
+GASCOMBATSYSTEM_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(NowAttackingTag);			// 공격 중 Tag
+GASCOMBATSYSTEM_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(NextAttackTag);				// 다음 공격 호출 Tag
+
 
 UCLASS()
-class GASCOMBATSYSTEM_API ACSPlayerCharacter : public ACharacter, public IAbilitySystemInterface
+class GASCOMBATSYSTEM_API ACSPlayerCharacter : public ACharacter, public IAbilitySystemInterface, public IComboAttackInterface
 {
 	GENERATED_BODY()
 
@@ -43,8 +48,12 @@ public:
 	// 컨트롤러가 빙의 되었을 때 호출되는 콜백
 	virtual void PossessedBy(AController* NewController) override;
 
+	// Interface
+public:
 	// Inherited via IAbilitySystemInterface
 	UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+
+	void RemoveComboAttackBinding_Implementation() override;
 
 protected:
 	// Input 시에 처리되는 이벤트
@@ -57,6 +66,9 @@ protected:
 	// 추후에 점프 금지 조건을 넣기 위해 미리 오버라이드
 	virtual void Jump() override;
 
+	virtual void StartNextAttack(const FGameplayEventData* InPlayload);
+
+	void RemoveAttackDelegate();
 
 protected:
 
@@ -88,7 +100,11 @@ protected:
 
 	// 공격 GameplayAbility
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = GameplayAbilities)
-	TSubclassOf<UGameplayAbility> AttackAbility;
+	TArray<TSubclassOf<UGameplayAbility>> AttackAbilities = {};
 
-	FGameplayAbilitySpecHandle AttackAbilityHandle;
+	TArray<FGameplayAbilitySpecHandle> AttackAbilityHandles = {};
+
+	int32 ComboIndex = 0;
+	bool bCallNextAttack = false;
+	FDelegateHandle ComboDelegateHandle = {};
 };

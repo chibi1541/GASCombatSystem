@@ -5,6 +5,9 @@
 #include "Animation/AnimMontage.h"
 #include "Abilities/Tasks/AbilityTask_PlayMontageAndWait.h"
 
+#include UE_INLINE_GENERATED_CPP_BY_NAME(CSGA_PlayMontageAndWait)
+
+
 UCSGA_PlayMontageAndWait::UCSGA_PlayMontageAndWait()
 {
 }

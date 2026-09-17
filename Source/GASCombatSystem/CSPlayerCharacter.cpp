@@ -13,8 +13,10 @@
 // 이거 안 넣으면 .gen.cpp 포함이 안되서 리플렉션 기능이 찐빠난다고 하는데 안넣어서 문제가 생기는 경우를 아직 못봄...
 #include UE_INLINE_GENERATED_CPP_BY_NAME(CSPlayerCharacter)
 
-// 이동 제한 GamplayTag 초기화
+// GamplayTag 초기화
 UE_DEFINE_GAMEPLAY_TAG(MovingBlockTag, "Gameplay.State.MovingBlocked");
+UE_DEFINE_GAMEPLAY_TAG(NowAttackingTag, "Gameplay.State.Attacking");
+UE_DEFINE_GAMEPLAY_TAG(NextAttackTag, "Gameplay.State.NextAttack");
 
 // Sets default values
 ACSPlayerCharacter::ACSPlayerCharacter()
@@ -66,12 +68,20 @@ void ACSPlayerCharacter::BeginPlay()
 	// GameplayAbility 등록
 	if (ASC)
 	{
-		// 공격 Ability 등록. 현재 Ability는 SubclassOf 형태이므로 인스턴스가 아닌 Class 타입
-		// 그렇기 때문에 실제 ClassObject를 가져와서 ASC에 할당해야함. 이 경우 CDO(Class Default Object)를 가져오면 됨
-		UGameplayAbility* AbilityCDO = AttackAbility->GetDefaultObject<UGameplayAbility>();
-		// 두 번째 인자는 Ability내부의 GameplayEffect의 레벨 값
-		FGameplayAbilitySpec AttackAbilitySpec(AbilityCDO, 1);
-		AttackAbilityHandle = ASC->GiveAbility(AttackAbilitySpec);
+		AttackAbilityHandles.Reserve(AttackAbilities.Num());
+		for (const auto& Ability : AttackAbilities)
+		{
+			// 공격 Ability 등록. 현재 Ability는 SubclassOf 형태이므로 인스턴스가 아닌 Class 타입
+			// 그렇기 때문에 실제 ClassObject를 가져와서 ASC에 할당해야함. 이 경우 CDO(Class Default Object)를 가져오면 됨
+			UGameplayAbility* AbilityCDO = Ability->GetDefaultObject<UGameplayAbility>();
+			// 두 번째 인자는 Ability내부의 GameplayEffect의 레벨 값
+			FGameplayAbilitySpec AttackAbilitySpec(AbilityCDO, 1);
+			FGameplayAbilitySpecHandle Handle = ASC->GiveAbility(AttackAbilitySpec);
+			if (Handle.IsValid())
+			{
+				AttackAbilityHandles.Emplace(Handle);
+			}
+		}
 	}
 }
 
@@ -163,10 +173,26 @@ void ACSPlayerCharacter::Look(const FInputActionValue& InValue)
 
 void ACSPlayerCharacter::Attack()
 {
-	if (AttackAbilityHandle.IsValid())
+	// 현재 공격 중이라면
+	if (ASC->HasMatchingGameplayTag(NowAttackingTag))
 	{
-		// 이걸로 호출하면 내부에서 이것저것 체크한 후에 Ability를 실행시킴
-		ASC->TryActivateAbility(AttackAbilityHandle);
+		// 콤보 공격을 호출
+		bCallNextAttack = true;
+	}
+	else
+	{
+		ComboIndex = 0;
+		bCallNextAttack = false;
+		// TryActivateAbility : 이걸로 호출하면 내부에서 이것저것 체크한 후에 Ability를 실행시킴
+		bool bActivate = ASC->TryActivateAbility(AttackAbilityHandles[ComboIndex]);
+
+		// 공격 Ability가 실행되고 다음 공격 Ability가 있다면
+		if (bActivate && (ComboIndex + 1 < AttackAbilityHandles.Num()))
+		{
+			// 특정 GameplayTag가 등록되었을 때 발동하고 싶은 함수를 Delegate에 등록
+			// Handle을 따로 관리하는 이유는 Delegate를 다 사용했으면 Remove 과정이 필요하기 때문
+			ComboDelegateHandle = ASC->GenericGameplayEventCallbacks.FindOrAdd(NextAttackTag).AddUObject(this, &ThisClass::StartNextAttack);
+		}
 	}
 }
 
@@ -175,7 +201,40 @@ void ACSPlayerCharacter::Jump()
 	Super::Jump();
 }
 
+void ACSPlayerCharacter::StartNextAttack(const FGameplayEventData* InPlayload)
+{
+	if (bCallNextAttack == false)
+	{
+		return;
+	}
+
+	if (ComboIndex + 1 < AttackAbilityHandles.Num())
+	{
+		ComboIndex++;
+		bCallNextAttack = false;
+		bool bActivate = ASC->TryActivateAbility(AttackAbilityHandles[ComboIndex]);
+		// 실행하지 못했다면 기존 등록했던 Delegate의 구독을 해제
+		if (!bActivate)
+		{
+			RemoveAttackDelegate();
+		}
+	}
+}
+
+void ACSPlayerCharacter::RemoveAttackDelegate()
+{
+	if (ComboDelegateHandle.IsValid())
+	{
+		ASC->GenericGameplayEventCallbacks.FindOrAdd(NextAttackTag).Remove(ComboDelegateHandle);
+	}
+}
+
 UAbilitySystemComponent* ACSPlayerCharacter::GetAbilitySystemComponent() const
 {
 	return ASC;
+}
+
+void ACSPlayerCharacter::RemoveComboAttackBinding_Implementation()
+{
+	RemoveAttackDelegate();
 }

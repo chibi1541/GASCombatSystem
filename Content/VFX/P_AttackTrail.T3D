@@ -1,0 +1,196 @@
+Begin Object Class=/Script/Engine.ParticleSystem Name="P_Terra_AnimTrail" ExportPath="/Script/Engine.ParticleSystem'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail'"
+   Begin Object Class=/Script/Engine.ParticleModuleColor Name="ParticleModuleColor_2" ExportPath="/Script/Engine.ParticleModuleColor'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleColor_2'"
+      Begin Object Class=/Script/Engine.DistributionFloatConstant Name="DistributionFloatConstant_4" ExportPath="/Script/Engine.DistributionFloatConstant'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleColor_2.DistributionFloatConstant_4'"
+      End Object
+      Begin Object Class=/Script/Engine.DistributionVectorConstant Name="DistributionVectorConstant_0" ExportPath="/Script/Engine.DistributionVectorConstant'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleColor_2.DistributionVectorConstant_0'"
+      End Object
+   End Object
+   Begin Object Class=/Script/Engine.ParticleModuleLifetime Name="ParticleModuleLifetime_5" ExportPath="/Script/Engine.ParticleModuleLifetime'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleLifetime_5'"
+      Begin Object Class=/Script/Engine.DistributionFloatConstant Name="DistributionFloatConstant_0" ExportPath="/Script/Engine.DistributionFloatConstant'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleLifetime_5.DistributionFloatConstant_0'"
+      End Object
+   End Object
+   Begin Object Class=/Script/Engine.ParticleModuleParameterDynamic Name="ParticleModuleParameterDynamic_2" ExportPath="/Script/Engine.ParticleModuleParameterDynamic'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleParameterDynamic_2'"
+      Begin Object Class=/Script/Engine.DistributionFloatConstant Name="DistributionFloatConstant_3" ExportPath="/Script/Engine.DistributionFloatConstant'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleParameterDynamic_2.DistributionFloatConstant_3'"
+      End Object
+      Begin Object Class=/Script/Engine.DistributionFloatConstantCurve Name="DistributionFloatConstantCurve_0" ExportPath="/Script/Engine.DistributionFloatConstantCurve'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleParameterDynamic_2.DistributionFloatConstantCurve_0'"
+      End Object
+      Begin Object Class=/Script/Engine.DistributionFloatConstantCurve Name="DistributionFloatConstantCurve_1" ExportPath="/Script/Engine.DistributionFloatConstantCurve'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleParameterDynamic_2.DistributionFloatConstantCurve_1'"
+      End Object
+      Begin Object Class=/Script/Engine.DistributionFloatConstantCurve Name="DistributionFloatConstantCurve_2" ExportPath="/Script/Engine.DistributionFloatConstantCurve'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleParameterDynamic_2.DistributionFloatConstantCurve_2'"
+      End Object
+   End Object
+   Begin Object Class=/Script/Engine.ParticleModuleRequired Name="ParticleModuleRequired_2" ExportPath="/Script/Engine.ParticleModuleRequired'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleRequired_2'"
+      Begin Object Class=/Script/Engine.DistributionFloatConstant Name="RequiredDistributionSpawnRate" ExportPath="/Script/Engine.DistributionFloatConstant'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleRequired_2.RequiredDistributionSpawnRate'"
+      End Object
+   End Object
+   Begin Object Class=/Script/Engine.ParticleModuleSpawn Name="ParticleModuleSpawn_1" ExportPath="/Script/Engine.ParticleModuleSpawn'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleSpawn_1'"
+      Begin Object Class=/Script/Engine.DistributionFloatConstant Name="BurstScaleDistribution" ExportPath="/Script/Engine.DistributionFloatConstant'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleSpawn_1.BurstScaleDistribution'"
+      End Object
+      Begin Object Class=/Script/Engine.DistributionFloatConstant Name="RequiredDistributionSpawnRate" ExportPath="/Script/Engine.DistributionFloatConstant'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleSpawn_1.RequiredDistributionSpawnRate'"
+      End Object
+      Begin Object Class=/Script/Engine.DistributionFloatConstant Name="RequiredDistributionSpawnRateScale" ExportPath="/Script/Engine.DistributionFloatConstant'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleSpawn_1.RequiredDistributionSpawnRateScale'"
+      End Object
+   End Object
+   Begin Object Class=/Script/Engine.ParticleModuleColorScaleOverLife Name="ParticleModuleColorScaleOverLife_2" ExportPath="/Script/Engine.ParticleModuleColorScaleOverLife'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleColorScaleOverLife_2'"
+      Begin Object Class=/Script/Engine.DistributionFloatConstantCurve Name="DistributionFloatConstantCurve_0" ExportPath="/Script/Engine.DistributionFloatConstantCurve'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleColorScaleOverLife_2.DistributionFloatConstantCurve_0'"
+      End Object
+      Begin Object Class=/Script/Engine.DistributionVectorConstant Name="DistributionVectorConstant_0" ExportPath="/Script/Engine.DistributionVectorConstant'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleColorScaleOverLife_2.DistributionVectorConstant_0'"
+      End Object
+   End Object
+   Begin Object Class=/Script/Engine.InterpCurveEdSetup Name="InterpCurveEdSetup_0" ExportPath="/Script/Engine.InterpCurveEdSetup'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:InterpCurveEdSetup_0'"
+   End Object
+   Begin Object Class=/Script/Engine.ParticleSpriteEmitter Name="ParticleSpriteEmitter_1" ExportPath="/Script/Engine.ParticleSpriteEmitter'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleSpriteEmitter_1'"
+      Begin Object Class=/Script/Engine.ParticleLODLevel Name="ParticleLODLevel_0" ExportPath="/Script/Engine.ParticleLODLevel'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleSpriteEmitter_1.ParticleLODLevel_0'"
+      End Object
+      Begin Object Class=/Script/Engine.ParticleLODLevel Name="ParticleLODLevel_3" ExportPath="/Script/Engine.ParticleLODLevel'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleSpriteEmitter_1.ParticleLODLevel_3'"
+      End Object
+   End Object
+   Begin Object Class=/Script/Engine.ParticleModuleTypeDataAnimTrail Name="ParticleModuleTypeDataAnimTrail_4" ExportPath="/Script/Engine.ParticleModuleTypeDataAnimTrail'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleTypeDataAnimTrail_4'"
+   End Object
+   Begin Object Name="ParticleModuleColor_2" ExportPath="/Script/Engine.ParticleModuleColor'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleColor_2'"
+      Begin Object Name="DistributionFloatConstant_4" ExportPath="/Script/Engine.DistributionFloatConstant'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleColor_2.DistributionFloatConstant_4'"
+         Constant=0.500000
+         bBakedDataSuccesfully=True
+      End Object
+      Begin Object Name="DistributionVectorConstant_0" ExportPath="/Script/Engine.DistributionVectorConstant'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleColor_2.DistributionVectorConstant_0'"
+         Constant=(X=0.650000,Y=0.519097,Z=0.257292)
+         bIsDirty=False
+         bBakedDataSuccesfully=True
+      End Object
+      StartColor=(MinValue=0.257292,MaxValue=0.650000,MinValueVec=(X=0.650000,Y=0.519097,Z=0.257292),MaxValueVec=(X=0.650000,Y=0.519097,Z=0.257292),Distribution="/Script/Engine.DistributionVectorConstant'DistributionVectorConstant_0'",Table=(Values=(0.650000,0.519097,0.257292),Op=1,EntryCount=1,EntryStride=3))
+      StartAlpha=(MinValue=0.500000,MaxValue=0.500000,Distribution="/Script/Engine.DistributionFloatConstant'DistributionFloatConstant_4'",Table=(Values=(0.500000),Op=1,EntryCount=1,EntryStride=1))
+      LODValidity=3
+      ModuleEditorColor=(B=163,G=180,R=0,A=255)
+   End Object
+   Begin Object Name="ParticleModuleLifetime_5" ExportPath="/Script/Engine.ParticleModuleLifetime'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleLifetime_5'"
+      Begin Object Name="DistributionFloatConstant_0" ExportPath="/Script/Engine.DistributionFloatConstant'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleLifetime_5.DistributionFloatConstant_0'"
+         Constant=0.500000
+         bBakedDataSuccesfully=True
+      End Object
+      Lifetime=(MinValue=0.500000,MaxValue=0.500000,Distribution="/Script/Engine.DistributionFloatConstant'DistributionFloatConstant_0'",Table=(Values=(0.500000),Op=1,EntryCount=1,EntryStride=1))
+      LODValidity=3
+      ModuleEditorColor=(B=176,G=167,R=0,A=255)
+   End Object
+   Begin Object Name="ParticleModuleParameterDynamic_2" ExportPath="/Script/Engine.ParticleModuleParameterDynamic'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleParameterDynamic_2'"
+      Begin Object Name="DistributionFloatConstant_3" ExportPath="/Script/Engine.DistributionFloatConstant'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleParameterDynamic_2.DistributionFloatConstant_3'"
+         bBakedDataSuccesfully=True
+      End Object
+      Begin Object Name="DistributionFloatConstantCurve_0" ExportPath="/Script/Engine.DistributionFloatConstantCurve'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleParameterDynamic_2.DistributionFloatConstantCurve_0'"
+         ConstantCurve=(Points=((OutVal=1.000000,InterpMode=CIM_CurveAutoClamped),(InVal=0.750000,InterpMode=CIM_CurveAutoClamped)))
+         bBakedDataSuccesfully=True
+      End Object
+      Begin Object Name="DistributionFloatConstantCurve_1" ExportPath="/Script/Engine.DistributionFloatConstantCurve'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleParameterDynamic_2.DistributionFloatConstantCurve_1'"
+         ConstantCurve=(Points=((OutVal=2.500000,ArriveTangent=-4.984555,LeaveTangent=-4.984555,InterpMode=CIM_CurveUser),(InVal=1.000000,OutVal=1.000000,InterpMode=CIM_CurveAutoClamped)))
+         bBakedDataSuccesfully=True
+      End Object
+      Begin Object Name="DistributionFloatConstantCurve_2" ExportPath="/Script/Engine.DistributionFloatConstantCurve'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleParameterDynamic_2.DistributionFloatConstantCurve_2'"
+         ConstantCurve=(Points=((OutVal=2.000000,ArriveTangent=-3.421146,LeaveTangent=-3.421146,InterpMode=CIM_CurveUser),(InVal=1.000000,InterpMode=CIM_CurveAutoClamped)))
+         bBakedDataSuccesfully=True
+      End Object
+      DynamicParams(0)=(ParamName="Refraction",ParamValue=(MaxValue=1.000000,Distribution="/Script/Engine.DistributionFloatConstantCurve'DistributionFloatConstantCurve_0'",Table=(TimeScale=9.333333,Values=(1.000000,0.944590,0.801733,0.606408,0.393592,0.198267,0.055410,0.000000),Op=1,EntryCount=8,EntryStride=1)))
+      DynamicParams(1)=(ParamName="HDR Intensity",ParamValue=(MinValue=0.995721,MaxValue=2.500000,Distribution="/Script/Engine.DistributionFloatConstantCurve'DistributionFloatConstantCurve_1'",Table=(TimeScale=7.000000,Values=(2.500000,1.893784,1.476060,1.212118,1.067250,1.006747,0.995900,1.000000),Op=1,EntryCount=8,EntryStride=1)))
+      DynamicParams(2)=(ParamName="Streak_Mask_Intensity",bUseEmitterTime=True,ParamValue=(MaxValue=2.000000,Distribution="/Script/Engine.DistributionFloatConstantCurve'DistributionFloatConstantCurve_2'",Table=(TimeScale=7.000000,Values=(2.000000,1.530150,1.104806,0.734091,0.428129,0.197044,0.050960,0.000000),Op=1,EntryCount=8,EntryStride=1)))
+      DynamicParams(3)=(ParamName="Param4",bUseEmitterTime=True,ParamValue=(Distribution="/Script/Engine.DistributionFloatConstant'DistributionFloatConstant_3'",Table=(Values=(0.000000),Op=1,EntryCount=1,EntryStride=1)))
+      UpdateFlags=15
+      LODValidity=3
+      ModuleEditorColor=(B=122,G=208,R=0,A=255)
+   End Object
+   Begin Object Name="ParticleModuleRequired_2" ExportPath="/Script/Engine.ParticleModuleRequired'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleRequired_2'"
+      Begin Object Name="RequiredDistributionSpawnRate" ExportPath="/Script/Engine.DistributionFloatConstant'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleRequired_2.RequiredDistributionSpawnRate'"
+      End Object
+      Material="/Script/Engine.Material'/Game/ParagonTerra/FX/Materials/Heroes/Terra/Abilities/M_Terra_PrimaryAnimTrail.M_Terra_PrimaryAnimTrail'"
+      bKillOnDeactivate=True
+      bKillOnCompleted=True
+      bUseLegacyEmitterTime=False
+      SpawnRate=(Distribution="/Script/Engine.DistributionFloatConstant'RequiredDistributionSpawnRate'")
+      RandomImageTime=1.000000
+      EmitterLoops=1
+      LODValidity=3
+      ModuleEditorColor=(B=168,G=0,R=176,A=255)
+   End Object
+   Begin Object Name="ParticleModuleSpawn_1" ExportPath="/Script/Engine.ParticleModuleSpawn'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleSpawn_1'"
+      Begin Object Name="BurstScaleDistribution" ExportPath="/Script/Engine.DistributionFloatConstant'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleSpawn_1.BurstScaleDistribution'"
+         Constant=1.000000
+      End Object
+      Begin Object Name="RequiredDistributionSpawnRate" ExportPath="/Script/Engine.DistributionFloatConstant'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleSpawn_1.RequiredDistributionSpawnRate'"
+         bBakedDataSuccesfully=True
+      End Object
+      Begin Object Name="RequiredDistributionSpawnRateScale" ExportPath="/Script/Engine.DistributionFloatConstant'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleSpawn_1.RequiredDistributionSpawnRateScale'"
+         Constant=1.000000
+         bBakedDataSuccesfully=True
+      End Object
+      Rate=(Distribution="/Script/Engine.DistributionFloatConstant'RequiredDistributionSpawnRate'",Table=(Values=(0.000000),Op=1,EntryCount=1,EntryStride=1))
+      RateScale=(MinValue=1.000000,MaxValue=1.000000,Distribution="/Script/Engine.DistributionFloatConstant'RequiredDistributionSpawnRateScale'",Table=(Values=(1.000000),Op=1,EntryCount=1,EntryStride=1))
+      BurstScale=(Distribution="/Script/Engine.DistributionFloatConstant'BurstScaleDistribution'")
+      LODValidity=3
+      ModuleEditorColor=(B=99,G=218,R=0,A=255)
+   End Object
+   Begin Object Name="ParticleModuleColorScaleOverLife_2" ExportPath="/Script/Engine.ParticleModuleColorScaleOverLife'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleColorScaleOverLife_2'"
+      Begin Object Name="DistributionFloatConstantCurve_0" ExportPath="/Script/Engine.DistributionFloatConstantCurve'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleColorScaleOverLife_2.DistributionFloatConstantCurve_0'"
+         ConstantCurve=(Points=((InVal=0.400000,OutVal=1.000000,ArriveTangent=-4.955999,LeaveTangent=-4.955999,InterpMode=CIM_CurveUser),(InVal=1.000000,InterpMode=CIM_CurveAutoClamped)))
+         bBakedDataSuccesfully=True
+      End Object
+      Begin Object Name="DistributionVectorConstant_0" ExportPath="/Script/Engine.DistributionVectorConstant'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleColorScaleOverLife_2.DistributionVectorConstant_0'"
+         Constant=(X=2.000000,Y=2.000000,Z=2.000000)
+         bIsDirty=False
+         bBakedDataSuccesfully=True
+      End Object
+      ColorScaleOverLife=(MinValue=2.000000,MaxValue=2.000000,MinValueVec=(X=2.000000,Y=2.000000,Z=2.000000),MaxValueVec=(X=2.000000,Y=2.000000,Z=2.000000),Distribution="/Script/Engine.DistributionVectorConstant'DistributionVectorConstant_0'",Table=(Values=(2.000000,2.000000,2.000000),Op=1,EntryCount=1,EntryStride=3))
+      AlphaScaleOverLife=(MaxValue=1.000000,Distribution="/Script/Engine.DistributionFloatConstantCurve'DistributionFloatConstantCurve_0'",Table=(TimeScale=11.666666,TimeBias=0.400000,Values=(1.000000,0.632528,0.368307,0.190309,0.081508,0.024874,0.003381,0.000000),Op=1,EntryCount=8,EntryStride=1))
+      LODValidity=3
+      ModuleEditorColor=(B=0,G=196,R=142,A=255)
+   End Object
+   Begin Object Name="InterpCurveEdSetup_0" ExportPath="/Script/Engine.InterpCurveEdSetup'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:InterpCurveEdSetup_0'"
+      Tabs(0)=(Curves=((CurveObject="/Script/Engine.DistributionVectorConstant'P_Terra_AnimTrail:ParticleModuleColorScaleOverLife_2.DistributionVectorConstant_0'",CurveColor=(B=0,G=196,R=142,A=255),CurveName="ColorScaleOverLife",bHideCurve=1,bColorCurve=1,bFloatingPointColorCurve=1),(CurveObject="/Script/Engine.DistributionFloatConstantCurve'P_Terra_AnimTrail:ParticleModuleColorScaleOverLife_2.DistributionFloatConstantCurve_0'",CurveColor=(B=0,G=196,R=142,A=255),CurveName="AlphaScaleOverLife",bHideCurve=1,bColorCurve=1,bFloatingPointColorCurve=1),(CurveObject="/Script/Engine.DistributionFloatConstantCurve'P_Terra_AnimTrail:ParticleModuleParameterDynamic_2.DistributionFloatConstantCurve_0'",CurveColor=(B=122,G=208,R=0,A=255),CurveName="Refraction (DP0)",bHideCurve=1),(CurveObject="/Script/Engine.DistributionFloatConstantCurve'P_Terra_AnimTrail:ParticleModuleParameterDynamic_2.DistributionFloatConstantCurve_1'",CurveColor=(B=122,G=208,R=0,A=255),CurveName="HDR Intensity (DP1)",bHideCurve=1),(CurveObject="/Script/Engine.DistributionFloatConstantCurve'P_Terra_AnimTrail:ParticleModuleParameterDynamic_2.DistributionFloatConstantCurve_2'",CurveColor=(B=122,G=208,R=0,A=255),CurveName="Streak_Mask_Intensity (DP2)"),(CurveObject="/Script/Engine.DistributionFloatConstant'P_Terra_AnimTrail:ParticleModuleParameterDynamic_2.DistributionFloatConstant_3'",CurveColor=(B=122,G=208,R=0,A=255),CurveName="Param4 (DP3)",bHideCurve=1),(CurveObject="/Script/Engine.DistributionFloatConstant'P_Terra_AnimTrail:ParticleModuleSpawn_1.RequiredDistributionSpawnRate'",CurveColor=(B=99,G=218,R=0,A=255),CurveName="Rate"),(CurveObject="/Script/Engine.DistributionFloatConstant'P_Terra_AnimTrail:ParticleModuleSpawn_1.RequiredDistributionSpawnRateScale'",CurveColor=(B=99,G=218,R=0,A=255),CurveName="RateScale"),(CurveObject="/Script/Engine.DistributionFloatConstant'P_Terra_AnimTrail:ParticleModuleSpawn_1.BurstScaleDistribution'",CurveColor=(B=99,G=218,R=0,A=255),CurveName="BurstScale")),ViewStartInput=-0.715341,ViewEndInput=5.476400,ViewStartOutput=-12.636312,ViewEndOutput=5.938907)
+   End Object
+   Begin Object Name="ParticleSpriteEmitter_1" ExportPath="/Script/Engine.ParticleSpriteEmitter'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleSpriteEmitter_1'"
+      Begin Object Name="ParticleLODLevel_0" ExportPath="/Script/Engine.ParticleLODLevel'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleSpriteEmitter_1.ParticleLODLevel_0'"
+         Level=1
+         bEnabled=False
+         RequiredModule="/Script/Engine.ParticleModuleRequired'P_Terra_AnimTrail:ParticleModuleRequired_2'"
+         Modules(0)="/Script/Engine.ParticleModuleLifetime'P_Terra_AnimTrail:ParticleModuleLifetime_5'"
+         Modules(1)="/Script/Engine.ParticleModuleColor'P_Terra_AnimTrail:ParticleModuleColor_2'"
+         Modules(2)="/Script/Engine.ParticleModuleColorScaleOverLife'P_Terra_AnimTrail:ParticleModuleColorScaleOverLife_2'"
+         Modules(3)="/Script/Engine.ParticleModuleParameterDynamic'P_Terra_AnimTrail:ParticleModuleParameterDynamic_2'"
+         Begin Object Name="ParticleModuleTypeDataAnimTrail_4" ExportPath="/Script/Engine.ParticleModuleTypeDataAnimTrail'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleTypeDataAnimTrail_4'"
+            bTangentRecalculationEveryFrame=True
+            TilingDistance=850.000000
+            LODValidity=3
+            ModuleEditorColor=(B=147,G=0,R=193,A=255)
+         End Object
+         TypeDataModule="/Script/Engine.ParticleModuleTypeDataAnimTrail'P_Terra_AnimTrail:ParticleModuleTypeDataAnimTrail_4'"
+         SpawnModule="/Script/Engine.ParticleModuleSpawn'P_Terra_AnimTrail:ParticleModuleSpawn_1'"
+         PeakActiveParticles=1
+      End Object
+      Begin Object Name="ParticleLODLevel_3" ExportPath="/Script/Engine.ParticleLODLevel'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleSpriteEmitter_1.ParticleLODLevel_3'"
+         RequiredModule="/Script/Engine.ParticleModuleRequired'P_Terra_AnimTrail:ParticleModuleRequired_2'"
+         Modules(0)="/Script/Engine.ParticleModuleLifetime'P_Terra_AnimTrail:ParticleModuleLifetime_5'"
+         Modules(1)="/Script/Engine.ParticleModuleColor'P_Terra_AnimTrail:ParticleModuleColor_2'"
+         Modules(2)="/Script/Engine.ParticleModuleColorScaleOverLife'P_Terra_AnimTrail:ParticleModuleColorScaleOverLife_2'"
+         Modules(3)="/Script/Engine.ParticleModuleParameterDynamic'P_Terra_AnimTrail:ParticleModuleParameterDynamic_2'"
+         TypeDataModule="/Script/Engine.ParticleModuleTypeDataAnimTrail'P_Terra_AnimTrail:ParticleModuleTypeDataAnimTrail_4'"
+         SpawnModule="/Script/Engine.ParticleModuleSpawn'P_Terra_AnimTrail:ParticleModuleSpawn_1'"
+         PeakActiveParticles=41
+      End Object
+      EmitterName="Primary AnimTrail"
+      bUseLegacySpawningBehavior=True
+      EmitterEditorColor=(B=145,G=0,R=195,A=255)
+      LODLevels(0)="/Script/Engine.ParticleLODLevel'ParticleLODLevel_3'"
+      LODLevels(1)="/Script/Engine.ParticleLODLevel'ParticleLODLevel_0'"
+      DetailModeBitmask=15
+   End Object
+   Begin Object Name="ParticleModuleTypeDataAnimTrail_4" ExportPath="/Script/Engine.ParticleModuleTypeDataAnimTrail'/Game/FX/Warrior/P_Terra_AnimTrail.P_Terra_AnimTrail:ParticleModuleTypeDataAnimTrail_4'"
+      bTangentRecalculationEveryFrame=True
+      TilingDistance=850.000000
+      LODValidity=3
+      ModuleEditorColor=(B=147,G=0,R=193,A=255)
+   End Object
+   Emitters(0)="/Script/Engine.ParticleSpriteEmitter'ParticleSpriteEmitter_1'"
+   CurveEdSetup="/Script/Engine.InterpCurveEdSetup'InterpCurveEdSetup_0'"
+   LODDistances(0)=0.000000
+   LODDistances(1)=3500.000000
+   LODSettings(1)=()
+   bShouldResetPeakCounts=True
+   LODMethod=PARTICLESYSTEMLODMETHOD_ActivateAutomatic
+   CustomOcclusionBounds=(Min=(X=0.000000,Y=0.000000,Z=0.000000),Max=(X=0.000000,Y=0.000000,Z=0.000000),IsValid=True)
+End Object
