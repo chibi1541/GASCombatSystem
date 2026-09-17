@@ -7,6 +7,7 @@
 #include "AbilitySystemInterface.h"
 #include "GameplayAbilitySpec.h"
 #include "ComboAttackInterface.h"
+#include "CombatActorInterface.h"
 
 #include "NativeGameplayTags.h"
 
@@ -27,7 +28,7 @@ GASCOMBATSYSTEM_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(HitTraceTag);				// 공격 �
 
 
 UCLASS()
-class GASCOMBATSYSTEM_API ACSPlayerCharacter : public ACharacter, public IAbilitySystemInterface, public IComboAttackInterface
+class GASCOMBATSYSTEM_API ACSPlayerCharacter : public ACharacter, public IAbilitySystemInterface, public IComboAttackInterface, public ICombatActorInterface
 {
 	GENERATED_BODY()
 
@@ -54,7 +55,13 @@ public:
 	// Inherited via IAbilitySystemInterface
 	UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
+	// Inherited via IComboAttackInterface
 	void RemoveComboAttackBinding_Implementation() override;
+
+	// Inherited via ICombatActorInterface
+	void OnAttack_Implementation() override;
+
+	void OnHit_Implementation() override;
 
 protected:
 	// Input 시에 처리되는 이벤트

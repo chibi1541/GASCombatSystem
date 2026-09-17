@@ -266,11 +266,11 @@ void ACSPlayerCharacter::HitTrace(const FGameplayEventData* InPlayload)
 
 	for (const FHitResult& Result : HitResults)
 	{
-		if (AActor* HtiActor = Result.GetActor())
+		if (AActor* Actor = Result.GetActor())
 		{
-			if (HtiActor->ActorHasTag(TEXT("Enemy")))
+			if (Actor->GetClass()->ImplementsInterface(UCombatActorInterface::StaticClass()))
 			{
-				// 데미지 처리
+				ICombatActorInterface::Execute_OnHit(Actor);
 			}
 		}
 	}
@@ -284,4 +284,14 @@ UAbilitySystemComponent* ACSPlayerCharacter::GetAbilitySystemComponent() const
 void ACSPlayerCharacter::RemoveComboAttackBinding_Implementation()
 {
 	RemoveAttackDelegate();
+}
+
+void ACSPlayerCharacter::OnAttack_Implementation()
+{
+
+}
+
+void ACSPlayerCharacter::OnHit_Implementation()
+{
+
 }
