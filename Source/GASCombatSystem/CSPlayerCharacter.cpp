@@ -87,7 +87,7 @@ void ACSPlayerCharacter::BeginPlay()
 			}
 		}
 
-		HitTraceDelegateHandle = ASC->GenericGameplayEventCallbacks.FindOrAdd(HitTraceTag).AddUObject(this, &ThisClass::HitTrace);
+		//HitTraceDelegateHandle = ASC->GenericGameplayEventCallbacks.FindOrAdd(HitTraceTag).AddUObject(this, &ThisClass::HitTrace);
 	}
 }
 
