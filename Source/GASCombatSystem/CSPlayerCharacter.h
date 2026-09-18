@@ -63,6 +63,8 @@ public:
 
 	void OnHit_Implementation() override;
 
+	void OnDie_Implementation() override;
+
 protected:
 	// Input 시에 처리되는 이벤트
 	virtual void Move(const FInputActionValue& InValue);

@@ -35,6 +35,9 @@ public:
 
 	virtual void PossessedBy(AController* NewController) override;
 
+	UFUNCTION()
+	virtual void OnDeathMontageEnded(UAnimMontage* Montage, bool bInterrupted);
+
 public:
 	// Interface
 
@@ -46,6 +49,7 @@ public:
 
 	void OnHit_Implementation() override;
 
+	void OnDie_Implementation() override;
 
 protected:
 
@@ -57,6 +61,9 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "TEMP")
 	TObjectPtr<UAnimMontage> OnHitMontage;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "TEMP")
+	TObjectPtr<UAnimMontage> OnDieMontage;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "GameplayEffect")
 	TSubclassOf<UGameplayEffect> BaseAttribInitEffect;

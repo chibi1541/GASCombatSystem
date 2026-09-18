@@ -3,6 +3,7 @@
 
 #include "CSBaseAttributeSet.h"
 #include "GameplayEffectExtension.h"
+#include "CombatActorInterface.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(CSBaseAttributeSet)
 
@@ -31,10 +32,16 @@ void UCSBaseAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCall
 		if (GetHealth() <= 0.f)
 		{
 			AActor* OwnerActor = GetOwningActor();
+			// HasAuthority의 경우 실행 주최를 의미하는데 권위 서버가 붙어있는 경우 서버에서만 처리할 수 있도록 하는 체크입니다.
 			if (OwnerActor && OwnerActor->HasAuthority())
 			{
 				// 사망처리
-
+				// 여기도 Interface를 사용해서 현재 액터가 어떤 액터인지 알지 못해도 사망 페이즈를 실행 할 수 있도록 구성
+				if (OwnerActor->GetClass()->ImplementsInterface(UCombatActorInterface::StaticClass()))
+				{
+					// 사망 페이즈 트리거
+					ICombatActorInterface::Execute_OnDie(OwnerActor);
+				}
 			}
 		}
 	}

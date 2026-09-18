@@ -29,4 +29,6 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "CombatSystem")
 	void OnHit();
 
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "CombatSystem")
+	void OnDie();
 };

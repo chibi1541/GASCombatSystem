@@ -297,3 +297,8 @@ void ACSPlayerCharacter::OnHit_Implementation()
 {
 
 }
+
+void ACSPlayerCharacter::OnDie_Implementation()
+{
+
+}

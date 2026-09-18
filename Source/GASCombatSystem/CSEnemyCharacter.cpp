@@ -59,6 +59,11 @@ void ACSEnemyCharacter::PossessedBy(AController* NewController)
 	ASC->InitAbilityActorInfo(this, this);
 }
 
+void ACSEnemyCharacter::OnDeathMontageEnded(UAnimMontage* Montage, bool bInterrupted)
+{
+	Destroy();
+}
+
 UAbilitySystemComponent* ACSEnemyCharacter::GetAbilitySystemComponent() const
 {
 	return ASC;
@@ -75,6 +80,23 @@ void ACSEnemyCharacter::OnHit_Implementation()
 	{
 		// 원래는 예외처리를 해야 합니다... 애님 인스턴스가 없는 경우도 있거든요...
 		GetMesh()->GetAnimInstance()->Montage_Play(OnHitMontage);
+	}
+}
+
+void ACSEnemyCharacter::OnDie_Implementation()
+{
+	SetActorEnableCollision(false);
+
+	if (OnDieMontage)
+	{
+		// 다시 한번 말하지만 예외처리를 해야 합니다... 애님 인스턴스가 없는 경우도 있거든요...
+		GetMesh()->GetAnimInstance()->Montage_Play(OnDieMontage);
+
+		FOnMontageEnded EndDelegate;
+		EndDelegate.BindUObject(this, &ThisClass::OnDeathMontageEnded);
+
+		// 몽타주가 끝난 다음 호출될 콜백 이벤트에 델리게이트 등록
+		GetMesh()->GetAnimInstance()->Montage_SetEndDelegate(EndDelegate, OnDieMontage);
 	}
 }
 
