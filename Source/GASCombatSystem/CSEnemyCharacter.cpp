@@ -24,12 +24,16 @@ void ACSEnemyCharacter::BeginPlay()
 	
 	if (BaseAttribInitEffect)
 	{
+		// GameplayAbility와 마찬가지로 GamplayEffect도 원본 형태 그대로를 사용하는게 아니라 
+		// FGameplayEffectSpecHandle라는 구조체로 변환 후에 ASC에 등록하고 사용합니다.
 		FGameplayEffectContextHandle EffectContext = ASC->MakeEffectContext();
 		EffectContext.AddSourceObject(this);
 
 		FGameplayEffectSpecHandle BaseEffectSpedHandle = ASC->MakeOutgoingSpec(BaseAttribInitEffect, 1, EffectContext);
 		if (BaseEffectSpedHandle.IsValid())
 		{
+			// Handle을 가지고 타겟의 ASC에 Effect를 적용 (GA의 Activate 처리)
+			// BaseEffectSpedHandle.Data -> TSharedPtr<UGameplayEffectSpec>
 			ASC->ApplyGameplayEffectSpecToTarget(*BaseEffectSpedHandle.Data.Get(), ASC);
 		}
 	}
@@ -46,13 +50,13 @@ void ACSEnemyCharacter::Tick(float DeltaTime)
 void ACSEnemyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
-	ASC->InitAbilityActorInfo(this, this);
 }
 
 void ACSEnemyCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
+
+	ASC->InitAbilityActorInfo(this, this);
 }
 
 UAbilitySystemComponent* ACSEnemyCharacter::GetAbilitySystemComponent() const

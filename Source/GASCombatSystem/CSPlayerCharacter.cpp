@@ -12,6 +12,8 @@
 #include "Kismet/KismetSystemLibrary.h"
 
 // 이거 안 넣으면 .gen.cpp 포함이 안되서 리플렉션 기능이 찐빠난다고 하는데 안넣어서 문제가 생기는 경우를 아직 못봄...
+// 찾아보니까 그거랑 상관 없이 이걸 포함 안하면 리플렉션으로 만들어지는 .gen.cpp(generated.h 랑 짝을 이룹니다) 가 별도의 번역 단위가 된다고 합니다.
+// 그러니까 이거 안 붙히면 CSPlayerCharacter.cpp와 CSPlayerCharacter.gen.cpp가 별도의 번역 단위가 되어서 따로 obj 파일이 만들어 집니다.
 #include UE_INLINE_GENERATED_CPP_BY_NAME(CSPlayerCharacter)
 
 // GamplayTag 초기화
